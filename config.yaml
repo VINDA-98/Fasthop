@@ -68,9 +68,3 @@ smtp:
   password: ''
   nickname: ''
   target: ''
-
-ones:
-  base:
-  user_uuid:
-  user_token:
-  space_uuid:

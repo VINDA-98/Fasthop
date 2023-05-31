@@ -8,5 +8,4 @@ type Configuration struct {
 	Redis    Redis    `mapstructure:"redis" json:"redis" yaml:"redis"`
 	Storage  Storage  `mapstructure:"storage" json:"storage" yaml:"storage"`
 	Smtp     SMTP     `mapstructure:"smtp" json:"smtp" yaml:"smtp"`
-	ONES     ONES     `mapstructure:"ones" json:"ones" yaml:"ones"`
 }

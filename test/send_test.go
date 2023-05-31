@@ -11,11 +11,6 @@ import (
 	"github.com/VINDA-98/Fasthop/global"
 )
 
-// @Title  test
-// @Description  MyGO
-// @Author  WeiDa  2023/5/5 11:37
-// @Update  WeiDa  2023/5/5 11:37
-
 var (
 	SmtpMailUser     = global.App.Config.Smtp.User
 	SmtpMailPwd      = global.App.Config.Smtp.Password
@@ -45,7 +40,7 @@ func TestSendMail(t *testing.T) {
 func SendMail() (err error) {
 
 	addressArray := strings.Split(SmtpMailTarget, ",") //目标提醒用户邮件地址
-	startStr := time.Now().Format("2006年01月02日")
+
 	//两天后的日期
 	endStr := time.Now().AddDate(0, 0, 2)
 	week := ""
@@ -97,70 +92,24 @@ func SendMail() (err error) {
 	internalBody := ""
 	for _, story := range Req.Stories {
 		numbers = append(numbers, story.Number) //增加编号
-		internalBody += fmt.Sprintf(`<div>
-			<p>%s号需求</p>
-			<p>%s。</p>
-			<a>https://our.ones.pro/project/#/team/RDjYMhKq/task/%s</a>
-			
-			<p>ONES交付一组链接：</p>
-			<p>@待手动填写</p>
-			<p>ONES交付三组链接：</p>
-			<p>@待手动填写</p>
-			<p>-------------------------------------------------------</p>
-		</div>`, story.Number, story.Title, story.Uuid,
-		) + "\r\n"
+		internalBody += fmt.Sprintf(`content %s %s %s`, story.Number, story.Title, story.Uuid) + "\r\n"
 	}
 
-	body := fmt.Sprintf(`
-			<div>
-			<p>光恒</p>
-			您好，【%s】新增%d个需求%s号需求，状态已更新为下单中： 
-			其中%s号需求请在【%s（%s）】完成报价。
-			需求列表：
-			<a>https://partner.ones.ai/project/#/team/GzPY6Hs8/project/UJpAKvZyVTcsXCle/component/A7s6KQFY/view/2DoUuE6J</a>
-			</div>
-			</br><p></p>
+	log.Println("body:", internalBody)
 
-			<div>
-			<p>揽月</p>
-			您好，【%s】新增%d个需求%s号需求，状态已更新为下单中： 
-			其中%s号需求请在【%s（%s）】完成报价。
-			需求列表：
-			<a>https://partner.ones.ai/project/#/team/P4fGixEe/project/UJpAKvZytcIhwrZ7/component/TRinZhfP/view/MeodL2Ys</a>
-			</div>
-			</br><p></p>
-
-			<div>
-			<p>锦高</p>
-			您好，【%s】新增%d个需求%s号需求，状态已更新为下单中： 
-			其中%s号需求请在【%s（%s）】完成报价。
-			需求列表：
-			<a>https://partner.ones.ai/project/#/team/V1FJr5kd/project/UJpAKvZyOo3ZXLng/component/JxMPKM9a/view/Wj7DcqfY</a>
-			</div>
-	`,
-		startStr, len(numbers), numbers, numbers, endStr.Format("2006年01月02日"), week,
-		startStr, len(numbers), numbers, numbers, endStr.Format("2006年01月02日"), week,
-		startStr, len(numbers), numbers, numbers, endStr.Format("2006年01月02日"), week,
-	)
-
-	body += "<p>以上需求请在两天内完成，谢谢！</p></n>"
-
-	log.Println("body:", internalBody+body)
-
-	subject := fmt.Sprintf("%s号需求报价", numbers)
+	subject := fmt.Sprintf("%s号需求报价 %s", numbers, week)
 
 	// 通常身份应该是空字符串，填充用户名.
 	auth := smtp.PlainAuth("", SmtpMailUser, SmtpMailPwd, SmtpMailHost)
 	contentType := "Content-Type: text/html; charset=UTF-8"
 	for _, v := range addressArray {
 		s := fmt.Sprintf(
-			"To:%s\r\nFrom:%s<%s>\r\nSubject:%s\r\n%s\r\n\r\n%s",
+			"To:%s\r\nFrom:%s<%s>\r\nSubject:%s\r\n%s\r\n\r\n",
 			v,
 			SmtpMailNickname,
 			SmtpMailUser,
 			subject,
 			contentType,
-			body,
 		)
 		msg := []byte(s)
 		addr := fmt.Sprintf("%s:%s", SmtpMailHost, SmtpMailPort)
