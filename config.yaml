@@ -1,7 +1,7 @@
 app:
   env: 'local'
   port: 8888
-  app_name: 'quotation-service'
+  app_name: 'Fasthop'
   app_url: 'http://localhost'
 
 log:
