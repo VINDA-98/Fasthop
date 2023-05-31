@@ -6,11 +6,10 @@
 ## Add your files
 
 ```
-cd existing_repo
+mkdir fasthop cd fasthop
 git remote add origin https://github.com/VINDA-98/Fasthop.git
-git remote add origin https://github.com/VINDA-98/Fasthop.git
-git branch -M master
-git push -uf origin master
+git fetch origin main
+git push -uf origin main
 ```
 
 
@@ -33,4 +32,9 @@ go mod tidy && go run main.go
 ## 项目在服务器运行
 ```
 nohup ./Fasthop >./out.log 2>&1 &
+```
+
+## 访问项目
+```
+ip+port(默认8888)
 ```
