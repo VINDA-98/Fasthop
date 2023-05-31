@@ -80,7 +80,9 @@ func getZapCore() zapcore.Core {
 		encoder = zapcore.NewConsoleEncoder(encoderConfig)
 	}
 
-	return zapcore.NewCore(encoder, getLogWriter(), level)
+	consoleWS := zapcore.AddSync(os.Stdout)
+	fileWS := getLogWriter()
+	return zapcore.NewCore(encoder, zapcore.NewMultiWriteSyncer(fileWS, consoleWS), level)
 }
 
 // 使用 lumberjack 作为日志写入器

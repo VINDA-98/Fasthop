@@ -20,6 +20,7 @@ func setupRouter() *gin.Engine {
 		gin.SetMode(gin.ReleaseMode)
 	}
 	router := gin.New()
+	// gin.SetMode(gin.ReleaseMode) // 生产模式下，设置该选项，将不会记录debug的日志
 	router.Use(gin.Logger(), middleware.CustomRecovery())
 	router.MaxMultipartMemory = 200 << 20 // 200 MiB todo 考虑到视频上传
 
@@ -28,9 +29,10 @@ func setupRouter() *gin.Engine {
 
 	// 前端项目静态资源
 	router.StaticFile("/", "./static/dist/index.html")
+	router.StaticFile("/login", "./static/dist/auth/login.html")
 	router.Static("/assets", "./static/dist/assets")
 	router.StaticFile("/favicon.ico", "./static/dist/favicon.ico")
-	//// 其他静态资源
+	// 其他静态资源
 	router.Static("/public", "./static")
 	router.Static("/storage", "./storage/app/public")
 
