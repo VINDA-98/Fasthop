@@ -51,8 +51,10 @@
     <label for="password">密码：</label>
     <input type="password" id="password" name="password" required>
     <button id="btn" type="button">登录</button>
-    <p>
+    <p></p>
     <button id="rtn" type="button">注册</button>
+    <p></p>
+    <button id="wtn" type="button">微信登录</button>
 </form>
 <script>
 
@@ -116,6 +118,10 @@
                 }
             })
             .catch(error => console.log('error', error));
+    }
+
+    document.getElementById('wtn').onclick=function(e){
+        window.location.href="http://www.baidu.com"
     }
 </script>
 </body>
