@@ -113,8 +113,8 @@ func (ec *Client) SendEmailByte(toUser []string, subject string, body []byte) er
 }
 
 func Test_SSL(t *testing.T) {
-	client := NewEmailClient("3330125541@qq.com", "hhplrasikbegchfd", "韦达的小助手", "smtp.qq.com", "465", true)
-	if err := client.SendEmail([]string{"weida@ones.cn"}, "email send test", "this is a test email for sending.\r\nJust Testing"); err != nil {
+	client := NewEmailClient("", "", "韦达的小助手", "smtp.qq.com", "465", true)
+	if err := client.SendEmail([]string{"weida@qq.com"}, "email send test", "this is a test email for sending.\r\nJust Testing"); err != nil {
 		fmt.Println(err)
 	}
 }
