@@ -32,7 +32,7 @@ func (storyService *storyService) GetStoryByTitle(title string) (story models.St
 func (storyService *storyService) GetStoryByNumber(number string) (story models.Story, err error) {
 	var result = global.App.DB.Where("number = ?", number).First(&story)
 	if result.RowsAffected == 0 {
-		err = errors.New("该标题没有对应的需求编号")
+		err = errors.New("该需求编号没有对应的用户故事")
 	}
 	return
 }

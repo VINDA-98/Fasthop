@@ -109,6 +109,7 @@ func initMySqlTables(db *gorm.DB) {
 		models.Media{},
 		models.Story{},
 		models.Quotation{},
+		//@todo 升级表结构
 	)
 	if err != nil {
 
