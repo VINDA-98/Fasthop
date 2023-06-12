@@ -3,6 +3,7 @@ package services
 import (
 	"context"
 	"errors"
+	"mime/multipart"
 	"path"
 	"strconv"
 	"time"
@@ -39,7 +40,12 @@ func (mediaService *mediaService) HashName(fileName string) string {
 // SaveImage 保存图片（公共读）
 func (mediaService *mediaService) SaveImage(params request.ImageUpload) (result outPut, err error) {
 	file, err := params.Image.Open()
-	defer file.Close()
+	defer func(file multipart.File) {
+		err := file.Close()
+		if err != nil {
+
+		}
+	}(file)
 	if err != nil {
 		err = errors.New("上传失败")
 		return
