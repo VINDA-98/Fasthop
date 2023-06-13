@@ -2,6 +2,7 @@ package bootstrap
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/VINDA-98/Fasthop/global"
@@ -21,7 +22,7 @@ func InitializeConfig() *viper.Viper {
 	v.SetConfigFile(config)
 	v.SetConfigType("yaml")
 	if err := v.ReadInConfig(); err != nil {
-		panic(any(fmt.Errorf("read config failed: %s \n", err)))
+		log.Fatal(any(fmt.Errorf("read config failed: %s \n", err)))
 	}
 
 	// 监听配置文件

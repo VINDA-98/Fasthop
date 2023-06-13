@@ -8,6 +8,7 @@ import (
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
+	"log"
 )
 
 type Application struct {
@@ -28,7 +29,7 @@ func (app *Application) Disk(disk ...string) storage.Storage {
 	}
 	s, err := storage.Disk(diskName)
 	if err != nil {
-		panic(any(err))
+		log.Fatal(any(err))
 	}
 	return s
 }
