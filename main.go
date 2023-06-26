@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/VINDA-98/Fasthop/bootstrap"
 	"github.com/VINDA-98/Fasthop/global"
+	"log"
 )
 
 func main() {
@@ -18,7 +19,17 @@ func main() {
 	defer func() {
 		if global.App.DB != nil {
 			db, _ := global.App.DB.DB()
-			db.Close()
+			err := db.Close()
+			if err != nil {
+				log.Println("")
+				return
+			}
+		}
+		if global.App.Redis != nil {
+			err := global.App.Redis.Close()
+			if err != nil {
+				return
+			}
 		}
 	}()
 
