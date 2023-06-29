@@ -18,7 +18,7 @@ type Client struct {
 	auth     smtp.Auth
 }
 
-// NewEmailClient  New new email client
+// NewEmailClient
 func NewEmailClient(user, password, nickName, host, port string, isSsl bool) *Client {
 	ec := &Client{
 		user:  user,
