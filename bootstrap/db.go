@@ -74,10 +74,10 @@ func getGormLogger() logger.Interface {
 	}
 
 	return logger.New(getGormLogWriter(), logger.Config{
-		SlowThreshold:             200 * time.Millisecond,                          // 慢 SQL 阈值
-		LogLevel:                  logMode,                                         // 日志级别
-		IgnoreRecordNotFoundError: false,                                           // 忽略ErrRecordNotFound（记录未找到）错误
-		Colorful:                  !global.App.Config.Database.EnableFileLogWriter, // 禁用彩色打印
+		SlowThreshold:             200 * time.Millisecond,                         // 慢 SQL 阈值
+		LogLevel:                  logMode,                                        // 日志级别
+		IgnoreRecordNotFoundError: false,                                          // 忽略ErrRecordNotFound（记录未找到）错误
+		Colorful:                  global.App.Config.Database.EnableFileLogWriter, // 禁用彩色打印
 	})
 }
 
