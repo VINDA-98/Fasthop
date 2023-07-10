@@ -20,6 +20,7 @@ func UploadAttachment(c *gin.Context) {
 
 	// Multipart form
 	form, _ := c.MultipartForm()
+
 	files := form.File["upload[]"]
 
 	number := c.PostForm("number")
