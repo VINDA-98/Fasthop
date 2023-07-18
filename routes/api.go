@@ -9,6 +9,8 @@ import (
 )
 
 func SetApiGroupRoutes(router *gin.RouterGroup) {
+	//接口限流
+	router.Use(middleware.LimitHandler(10, 1.0))
 	router.POST("/auth/register", app.Register)
 	router.POST("/auth/login", app.Login)
 
